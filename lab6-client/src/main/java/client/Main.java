@@ -1,12 +1,11 @@
 package client;
 
-import client.logic.Client;
-import client.logic.InstructionListener;
+import client.logic.User;
+import core.logic.InstructionListener;
 
 public class Main {
-
     public static void main(String[] args) {
-        int port = 5653;
+        int port = 5343;
         try {
             if (args.length > 1) {
                 if (args[0].equals("-p")) {
@@ -15,11 +14,11 @@ public class Main {
             }
         } catch (Exception e) {
         }
+
         InstructionListener instructionListener = new InstructionListener();
 
-        instructionListener.registerObserver(new Client(port, instructionListener));
+        instructionListener.registerObserver(new User(port, instructionListener));
 
         instructionListener.start(System.in);
-
     }
 }

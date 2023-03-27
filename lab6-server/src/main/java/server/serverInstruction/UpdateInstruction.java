@@ -1,27 +1,28 @@
-package server.instruction;
+package server.serverInstruction;
 
-import server.io.Cin;
-import server.io.Logger;
-import server.logic.Instruction;
-import server.models.Movie;
-import server.models.MovieCollection;
+import core.io.Cin;
+import core.models.Movie;
+import server.logic.ServerInstruction;
+import server.logic.MovieCollection;
+
+import core.logic.InstructionInfo;
+import core.clientInstruction.*;
 
 /**
  * Команда заменяет элемент id которого равен заданному
  */
-public class UpdateInstruction implements Instruction {
+public class UpdateInstruction implements ServerInstruction {
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
-        if (args.length != 2) {
+    public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
+        if (info.getArgs().length != 1) {
             throw new IllegalArgumentException("Error! the instruction is incorrect");
         }
         int update_id = 0;
         try {
-            update_id = Integer.parseInt(args[1]);
+            update_id = Integer.parseInt(info.getArgs()[0]);
         } catch (NumberFormatException e) {
-            Logger.get().writeLine("Некорректный аргумент");
-            return;
+            return new PrintInstruction("Некорректный аргумент");
         }
 
         for (int i = 0; i < MovieCollection.getInstance().getData().size(); i++) {
@@ -30,7 +31,7 @@ public class UpdateInstruction implements Instruction {
                 m.getElement(Cin.peek());
                 m.setId(update_id);
                 MovieCollection.getInstance().getData().set(i, m);
-                return;
+                return new PrintInstruction("Элемент обновлен");
             }
         }
         throw new IllegalArgumentException("Элемента в введеным id несуществует");
@@ -44,5 +45,13 @@ public class UpdateInstruction implements Instruction {
     @Override
     public String about() {
         return "обновить значение элемента коллекции, id которого равен заданному";
+    }
+
+    public boolean isSpecial() {
+        return false;
+    }
+
+    public boolean needElement() {
+        return true;
     }
 }

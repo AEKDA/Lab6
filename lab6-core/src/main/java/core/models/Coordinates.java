@@ -1,4 +1,4 @@
-package server.models;
+package core.models;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;

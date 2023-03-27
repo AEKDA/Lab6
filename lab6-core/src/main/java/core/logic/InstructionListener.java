@@ -1,15 +1,14 @@
-package client.logic;
+package core.logic;
 
 import java.io.InputStream;
 import java.util.LinkedList;
+import java.util.Arrays;
 
 import java.util.regex.Pattern;
 import java.util.regex.Matcher;
 
 import core.io.Cin;
 import core.io.Logger;
-import core.logic.Observable;
-import core.logic.Observer;
 
 /**
  * A class that receives instructions from a user or from a file and processes
@@ -27,9 +26,20 @@ public class InstructionListener implements Observable {
 
     @Override
     public void notifyObservers() {
+        InstructionInfo info = lexemAnalys(args);
         for (Observer o : deque) {
-            o.update(args);
+            o.update(info);
         }
+    }
+
+    private InstructionInfo lexemAnalys(String[] args) {
+
+        if (args.length == 1)
+            return new InstructionInfo(args[0]);
+        else if (args.length == 2) {
+            return new InstructionInfo(args[0], Arrays.copyOfRange(args, 1, args.length));
+        }
+        return new InstructionInfo();
     }
 
     @Override

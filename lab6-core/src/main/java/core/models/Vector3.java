@@ -1,4 +1,4 @@
-package server.models;
+package core.models;
 
 public class Vector3 {
     public long x;

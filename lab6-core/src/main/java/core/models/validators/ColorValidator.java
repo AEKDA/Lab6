@@ -1,6 +1,6 @@
-package server.models.validators;
+package core.models.validators;
 
-import server.models.Color;
+import core.models.Color;
 
 /**
  * Класс проверяет верность ввода {@link lab6.models.Color}

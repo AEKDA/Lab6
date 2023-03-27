@@ -1,26 +1,29 @@
-package server.instruction;
+package server.serverInstruction;
 
 import server.exception.KeyNotFoundException;
 import server.io.JSONMovieLoaer;
 import server.logic.FileManager;
-import server.logic.Instruction;
-import server.models.MovieCollection;
+import server.logic.ServerInstruction;
+import server.logic.MovieCollection;
+import core.clientInstruction.*;
+import core.logic.InstructionInfo;
 
 /**
  * Команда сохраняет всю коллекцию в файл
  */
-public class SaveMovieInstruction implements Instruction {
+public class SaveMovieInstruction implements ServerInstruction {
 
     @Override
-    public void execute(String[] args) {
+    public ClientInstruction execute(InstructionInfo info) {
         JSONMovieLoaer loader = new JSONMovieLoaer();
         try {
             loader.write(FileManager.get().getPath("Collection").toFile().getPath(),
                     MovieCollection.getInstance().getData().toArray());
         } catch (KeyNotFoundException e) {
             MovieCollection.getInstance().getPathToCollection();
-            this.execute(args);
+            this.execute(info);
         }
+        return new PrintInstruction("Коллекция сохранена");
     }
 
     @Override
@@ -31,5 +34,13 @@ public class SaveMovieInstruction implements Instruction {
     @Override
     public String about() {
         return "сохранить коллекцию в файл";
+    }
+
+    public boolean isSpecial() {
+        return true;
+    }
+
+    public boolean needElement() {
+        return false;
     }
 }

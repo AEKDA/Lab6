@@ -1,34 +1,39 @@
-package server.instruction;
+package server.serverInstruction;
 
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Stack;
 
-import server.io.Logger;
-import server.logic.Instruction;
-import server.models.Movie;
-import server.models.MovieCollection;
+import core.models.Movie;
+import server.logic.ServerInstruction;
+import server.logic.MovieCollection;
+import core.clientInstruction.*;
+
+import core.logic.InstructionInfo;
 
 /**
  * Команда выводит элементы Коллекции в порядке убывания имени
  */
-public class PrintDescendingInstruction implements Instruction {
+public class PrintDescendingInstruction implements ServerInstruction {
 
     @SuppressWarnings("all")
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
-        if (args.length != 1) {
+    public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
+        if (info.getArgs().length != 1) {
             throw new IllegalArgumentException("Error! Argument of Instruction incorrect");
         }
-        Stack<Movie> tmp = (Stack<Movie>)MovieCollection.getInstance().getData().clone();
+        Stack<Movie> tmp = (Stack<Movie>) MovieCollection.getInstance().getData().clone();
         Collections.sort(tmp, new Comparator<Movie>() {
             public int compare(Movie t1, Movie t2) {
                 return t1.getName().compareTo(t2.getName()) * -1;
             }
         });
+        StringBuilder sb = new StringBuilder();
         for (Object o : tmp) {
-            Logger.get().writeLine(o.toString());
+            sb.append(o.toString());
         }
+
+        return new PrintInstruction(sb.toString());
     }
 
     @Override
@@ -39,5 +44,13 @@ public class PrintDescendingInstruction implements Instruction {
     @Override
     public String about() {
         return "вывести элементы коллекции в порядке убывания";
+    }
+
+    public boolean isSpecial() {
+        return false;
+    }
+
+    public boolean needElement() {
+        return false;
     }
 }

@@ -1,6 +1,6 @@
-package server.logic;
+package core.logic;
 
-import server.io.Cin;
+import core.io.Cin;
 
 /**
  * Интерфейс, который должны реалзовывать элемменты коллекции для работы с данными

@@ -1,6 +1,6 @@
-package server.models.validators;
+package core.models.validators;
 
-import server.models.MovieGenre;
+import core.models.MovieGenre;
 
 
 /**

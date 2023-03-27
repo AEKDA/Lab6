@@ -2,8 +2,9 @@ package server.logic;
 
 import java.util.Stack;
 
+import core.logic.InstructionInfo;
 import core.logic.Observer;
-import core.io.Logger;
+import core.clientInstruction.PrintInstruction;
 import server.exception.IncorrectInstructionException;
 
 /**
@@ -11,31 +12,37 @@ import server.exception.IncorrectInstructionException;
  */
 public class InstructionFetch implements Observer {
 
-    private Stack<Instruction> instructionStack = new Stack<>();
+    private Stack<ServerInstruction> instructionStack = new Stack<>();
+    private ClientListener clientListener = null;
+
+    public InstructionFetch(ClientListener server) {
+        this.clientListener = server;
+    }
 
     @Override
-    public void update(String[] args) {
+    public void update(InstructionInfo info) {
         try {
-            Instruction i = getInstruction(args);
-            i.execute(args);
+            ServerInstruction i = getInstruction(info);
+            clientListener.setAnswer(i.execute(info));
         } catch (IncorrectInstructionException e) {
-            Logger.get().writeLine(e.getMessage());
+            clientListener.setAnswer(new PrintInstruction(e.getMessage()));
         } catch (IllegalArgumentException e) {
-            Logger.get().writeLine(args[0] + ": " + e.getMessage());
+            clientListener.setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
         }
     }
 
-    private Instruction getInstruction(String[] args) throws IncorrectInstructionException {
-        if (args.length == 0) {
+    private ServerInstruction getInstruction(InstructionInfo info) throws IncorrectInstructionException {
+        if (info.getInstruction().equals("")) {
             throw new IncorrectInstructionException("Error! You have not entered the instructions");
         }
 
-        for (Instruction instruction : instructionStack) {
-            if (instruction.getName().equals(args[0])) {
+        for (ServerInstruction instruction : instructionStack) {
+            if (instruction.getName().equals(info.getInstruction())) {
                 return instruction;
             }
         }
-        throw new IncorrectInstructionException("Error! The entered instruction is undefined: " + args[0]);
+        throw new IncorrectInstructionException(
+                "Error! The entered instruction is undefined: " + info.getInstruction());
     }
 
     /**
@@ -45,7 +52,7 @@ public class InstructionFetch implements Observer {
      * @return An instance of the same class, in order to be able to call functions
      *         along the chain
      */
-    public InstructionFetch addInstruction(Instruction instruction) {
+    public InstructionFetch addInstruction(ServerInstruction instruction) {
         instructionStack.push(instruction);
         return this;
     }
@@ -53,7 +60,7 @@ public class InstructionFetch implements Observer {
     /**
      * @return {@link lab5.java.util.Stack} containing all instructions
      */
-    public Stack<Instruction> getInstructionStack() {
+    public Stack<ServerInstruction> getInstructionStack() {
         return instructionStack;
     }
 }

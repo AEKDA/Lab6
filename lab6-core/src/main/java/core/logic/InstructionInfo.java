@@ -7,10 +7,22 @@ public class InstructionInfo implements Serializable {
     private String[] args;
     private boolean isElement = false;
     private CollectionElement collectionElement = null;
+    private boolean isSpecial = false;
+    private static final long serialVersionUID = 2L;
 
     public InstructionInfo() {
         instructionName = "";
         args = null;
+    }
+
+    public InstructionInfo(String name, boolean special) {
+        instructionName = name;
+        args = null;
+        isSpecial = special;
+    }
+
+    public boolean isSpecial() {
+        return isSpecial;
     }
 
     public InstructionInfo(String name) {

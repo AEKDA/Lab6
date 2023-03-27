@@ -6,6 +6,7 @@ import java.io.File;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
+import core.io.Logger;
 import server.logic.CollectionInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;

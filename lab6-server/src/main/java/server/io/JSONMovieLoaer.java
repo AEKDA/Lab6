@@ -8,7 +8,9 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import server.models.Movie;
+import core.io.BaseReader;
+import core.io.Logger;
+import core.models.Movie;
 
 /**
  * Класс реализующий загрузку и записать из json файла в коллекцию содержащую

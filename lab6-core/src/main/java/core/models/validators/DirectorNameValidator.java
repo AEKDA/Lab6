@@ -1,4 +1,4 @@
-package server.models.validators;
+package core.models.validators;
 
 
 /**

@@ -1,4 +1,4 @@
-package server.io;
+package core.io;
 
 /**
  * Класс абстрагирующий вывод в консоль

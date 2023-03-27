@@ -1,4 +1,4 @@
-package server.models;
+package core.models;
 
 public enum MovieGenre {
     DRAMA,

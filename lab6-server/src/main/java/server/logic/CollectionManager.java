@@ -2,6 +2,8 @@ package server.logic;
 
 import java.util.Collection;
 
+import core.logic.CollectionElement;
+
 /**
  * Интерфейс, который предоставляет абстрагированные методы для работы с коллекциями
  */

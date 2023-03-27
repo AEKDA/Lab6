@@ -1,4 +1,4 @@
-package server.instruction;
+package core.clientInstruction;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,36 +9,37 @@ import java.nio.file.Path;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
-import client.logic.InstructionListener;
-import server.io.BaseReader;
-import server.logic.Instruction;
+import core.logic.Client;
+import core.logic.InstructionListener;
+import core.io.BaseReader;
 
 /**
  * Комманда исполняет скрипт, который был передан ей
  */
-public class ExecuteScriptInstruction implements Instruction {
-    private InstructionListener instructionListener;
+public class ClientExecuteScriptInstruction extends ClientInstruction {
     Stack<Path> recursiveStack = new Stack<>();
+    String[] args;
 
-    public ExecuteScriptInstruction(InstructionListener instructionListener) {
-        this.instructionListener = instructionListener;
+    public ClientExecuteScriptInstruction(String[] args) {
+        this.args = args;
     }
 
     @Override
-    public void execute(String[] args) throws IllegalArgumentException {
-        if (args.length != 2) {
+    protected void implement(Client client) throws IllegalArgumentException {
+        InstructionListener instructionListener = client.getListener();
+        if (args.length != 1) {
             throw new IllegalArgumentException("Error! The arguments are not correct");
         }
         try {
             Path path;
             try {
-                if (!Paths.get(args[1]).isAbsolute()) {
-                    path = Paths.get(recursiveStack.peek().normalize().getParent().toString(), args[1]);
+                if (!Paths.get(args[0]).isAbsolute()) {
+                    path = Paths.get(recursiveStack.peek().normalize().getParent().toString(), args[0]);
                 } else {
-                    path = Paths.get(args[1]);
+                    path = Paths.get(args[0]);
                 }
             } catch (EmptyStackException e) {
-                path = Paths.get(args[1]);
+                path = Paths.get(args[0]);
             }
             boolean exist = Files.exists(path);
             boolean notExist = Files.notExists(path);
@@ -74,15 +75,5 @@ public class ExecuteScriptInstruction implements Instruction {
             }
         }
         return true;
-    }
-
-    @Override
-    public String getName() {
-        return "execute_script";
-    }
-
-    @Override
-    public String about() {
-        return "считать и исполнить скрипт из указанного файла. В скрипте содержатся команды в таком же виде, в котором их вводит пользователь в интерактивном режиме.";
     }
 }

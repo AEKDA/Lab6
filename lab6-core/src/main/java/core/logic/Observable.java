@@ -1,4 +1,4 @@
-package server.logic;
+package core.logic;
 
 public interface Observable {
     void registerObserver(Observer o);

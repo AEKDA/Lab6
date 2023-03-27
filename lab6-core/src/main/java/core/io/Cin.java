@@ -1,4 +1,4 @@
-package server.io;
+package core.io;
 
 import java.io.InputStream;
 import java.util.NoSuchElementException;

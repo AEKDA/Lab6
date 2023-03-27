@@ -1,6 +1,6 @@
-package server.models.validators;
+package core.models.validators;
 
-import server.models.Vector3;
+import core.models.Vector3;
 
 /**
  * Класс проверяет верность ввода {@link lab6.models.Vector3}

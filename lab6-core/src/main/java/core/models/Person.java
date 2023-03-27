@@ -1,4 +1,4 @@
-package server.models;
+package core.models;
 
 import java.util.Objects;
 
