@@ -1,0 +1,5 @@
+help
+final
+info
+show
+execute_script scrip3.txt

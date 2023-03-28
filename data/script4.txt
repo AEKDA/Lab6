@@ -1,0 +1,2 @@
+g
+execute_script C:\Users\AEnigMma\Documents\ITMO_LAB\ProgaLabs\Lab5\data\script1.txt

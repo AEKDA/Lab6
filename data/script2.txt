@@ -1,0 +1,16 @@
+add 
+Wow
+123 544
+4
+1235
+3676534
+DRAMA
+Name-it's name
+175
+RED
+CHINA
+123 645 234 
+RUSSIA
+execute_script script1.txt
+shuffle
+average_of_oscars_count
