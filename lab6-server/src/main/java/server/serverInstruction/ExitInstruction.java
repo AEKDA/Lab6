@@ -12,6 +12,7 @@ public class ExitInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) {
+        new SaveMovieInstruction().execute(info);
         return new StopClientInstruction();
     }
 

@@ -40,7 +40,10 @@ public class InstructionInfo implements Serializable {
 
     public void setElement(CollectionElement collectionElement) {
         this.collectionElement = collectionElement;
-        isElement = true;
+    }
+
+    public void setIsElement(boolean need) {
+        this.isElement = need;
     }
 
     public boolean IsElement() {

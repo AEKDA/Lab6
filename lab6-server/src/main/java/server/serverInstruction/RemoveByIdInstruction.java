@@ -15,12 +15,11 @@ public class RemoveByIdInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
-        if (info.getArgs().length != 1) {
+        if (info.getArgs() == null || info.getArgs().length != 1) {
             throw new IllegalArgumentException("Error! input args incorrect!");
         }
         try {
-            if (Integer.parseInt(info.getArgs()[0]) >= MovieCollection.getInstance().getData().size()
-                    || Integer.parseInt(info.getArgs()[0]) < 0) {
+            if (Integer.parseInt(info.getArgs()[0]) < 0) {
                 return new PrintInstruction("Некорректный аргумент");
             }
         } catch (NumberFormatException e) {
@@ -29,7 +28,7 @@ public class RemoveByIdInstruction implements ServerInstruction {
 
         id = info.getArgs()[0];
         MovieCollection.getInstance().getData().removeIf(RemoveByIdInstruction::test);
-        return null;
+        return new PrintInstruction("Элемент удален");
     }
 
     public static boolean test(Movie m) {

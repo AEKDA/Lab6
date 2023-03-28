@@ -26,7 +26,9 @@ public class ShowInstruction implements ServerInstruction {
         for (Object element : MovieCollection.getInstance().getData()) {
             sb.append(element.toString());
         }
-
+        if (sb.isEmpty()) {
+            return new PrintInstruction("Коллекция пуста");
+        }
         return new PrintInstruction(sb.toString());
     }
 

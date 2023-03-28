@@ -19,14 +19,12 @@ public class AverageOfOscarsCountInstruction implements ServerInstruction {
         for (Movie movie : MovieCollection.getInstance().getData()) {
             oscarsCount += movie.getOscarCount();
         }
-        try {
-
-            String s = String.format("Middle count Oscars:%.1f\n",
-                    (float) oscarsCount / (float) (MovieCollection.getInstance().getData().size())).toString();
-            return new PrintInstruction(s);
-        } catch (ArithmeticException e) {
+        if (oscarsCount == 0) {
             return new PrintInstruction("Middle count Oscars: 0");
         }
+        String s = String.format("Middle count Oscars:%.1f\n",
+                (float) oscarsCount / (float) (MovieCollection.getInstance().getData().size())).toString();
+        return new PrintInstruction(s);
     }
 
     @Override
@@ -42,6 +40,7 @@ public class AverageOfOscarsCountInstruction implements ServerInstruction {
     public boolean isSpecial() {
         return false;
     }
+
     public boolean needElement() {
         return false;
     }

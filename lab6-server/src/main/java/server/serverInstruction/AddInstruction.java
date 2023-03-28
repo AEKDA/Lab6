@@ -13,11 +13,11 @@ public class AddInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
-            if (info.getArgs().length != 1 || info.IsElement() == false)
-                throw new IllegalArgumentException("Error! input args incorrect!");
+        if (info.getArgs() != null) {
+            throw new IllegalArgumentException("Error! input args incorrect!");
+        }
 
         MovieCollection.getInstance().pushElement((Movie) info.getElement());
-
         return new PrintInstruction("Элемент добавлен");
     }
 

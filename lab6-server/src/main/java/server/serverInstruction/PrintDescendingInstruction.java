@@ -19,7 +19,7 @@ public class PrintDescendingInstruction implements ServerInstruction {
     @SuppressWarnings("all")
     @Override
     public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
-        if (info.getArgs().length != 1) {
+        if (info.getArgs() != null) {
             throw new IllegalArgumentException("Error! Argument of Instruction incorrect");
         }
         Stack<Movie> tmp = (Stack<Movie>) MovieCollection.getInstance().getData().clone();

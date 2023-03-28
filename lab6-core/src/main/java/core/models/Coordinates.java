@@ -1,9 +1,11 @@
 package core.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Coordinates {
+public class Coordinates implements Serializable {
     private float x;
     private double y; // Максимальное значение поля: 777
 

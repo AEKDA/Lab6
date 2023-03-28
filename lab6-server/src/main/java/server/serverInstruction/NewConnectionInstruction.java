@@ -19,7 +19,9 @@ public class NewConnectionInstruction implements ServerInstruction {
         Stack<InstructionInfo> infoStack = new Stack<>();
 
         for (ServerInstruction serverInstruction : fetch.getInstructionStack()) {
-            infoStack.push(new InstructionInfo(serverInstruction.getName()));
+            InstructionInfo out = new InstructionInfo(serverInstruction.getName(), serverInstruction.isSpecial());
+            out.setIsElement(serverInstruction.needElement());
+            infoStack.push(out);
         }
 
         return new StackContentInstruction(infoStack);

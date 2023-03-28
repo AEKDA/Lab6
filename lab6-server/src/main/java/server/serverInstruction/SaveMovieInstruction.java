@@ -20,7 +20,7 @@ public class SaveMovieInstruction implements ServerInstruction {
             loader.write(FileManager.get().getPath("Collection").toFile().getPath(),
                     MovieCollection.getInstance().getData().toArray());
         } catch (KeyNotFoundException e) {
-            MovieCollection.getInstance().getPathToCollection();
+            //MovieCollection.getInstance().getPathToCollection();
             this.execute(info);
         }
         return new PrintInstruction("Коллекция сохранена");

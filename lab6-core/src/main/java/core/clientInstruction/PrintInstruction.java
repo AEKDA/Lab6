@@ -1,5 +1,6 @@
 package core.clientInstruction;
 
+import core.io.Logger;
 import core.logic.Client;
 
 public class PrintInstruction extends ClientInstruction {
@@ -10,6 +11,6 @@ public class PrintInstruction extends ClientInstruction {
     }
 
     public void implement(Client client) {
-        System.out.println(message);
+        Logger.get().writeLine(message);
     }
 }

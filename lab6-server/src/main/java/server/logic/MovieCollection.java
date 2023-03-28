@@ -66,6 +66,7 @@ public class MovieCollection implements CollectionManager<Movie> {
         }
     }
 
+    @Deprecated
     public void getPathToCollection() {
         Cin cin = new Cin(System.in);
         Logger.get().writeLine("Введите путь к файлу, содержащему коллекцию");
@@ -105,6 +106,7 @@ public class MovieCollection implements CollectionManager<Movie> {
         }
     }
 
+    @Deprecated
     public void setStartData() {
         getPathToCollection();
         CollectionLoader<Movie> io = new JSONMovieLoaer();
@@ -168,6 +170,7 @@ public class MovieCollection implements CollectionManager<Movie> {
      * @param movie Элемент, который будет добавлен в коллекцию
      */
     public void pushElement(Movie movie) {
+        movie.setId(getId());
         collectionStack.push(movie);
     }
 

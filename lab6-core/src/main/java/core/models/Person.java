@@ -1,11 +1,12 @@
 package core.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Person {
+public class Person implements Serializable {
     private String name; // Поле не может быть null, Строка не может быть пустой
     private Integer height; // Поле не может быть null, Значение поля должно быть больше 0
     private Color eyeColor; // Поле может быть null

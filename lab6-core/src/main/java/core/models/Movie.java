@@ -9,10 +9,11 @@ import core.io.Logger;
 import core.models.validators.*;
 import core.logic.CollectionElement;
 
+import java.io.Serializable;
 import java.time.ZonedDateTime;
 import java.util.Objects;
 
-public class Movie implements CollectionElement {
+public class Movie implements CollectionElement, Serializable {
     @JsonIgnore
     private int id; // Значение поля должно быть больше 0, Значение этого поля должно быть
                     // уникальным, Значение этого поля должно генерироваться автоматически

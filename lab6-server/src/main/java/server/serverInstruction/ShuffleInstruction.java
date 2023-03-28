@@ -40,6 +40,7 @@ public class ShuffleInstruction implements ServerInstruction {
     public boolean isSpecial() {
         return false;
     }
+
     public boolean needElement() {
         return false;
     }

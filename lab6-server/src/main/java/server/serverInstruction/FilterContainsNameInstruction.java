@@ -15,7 +15,7 @@ public class FilterContainsNameInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
-        if (info.getArgs().length != 1) {
+        if (info.getArgs() == null || info.getArgs().length != 1) {
             throw new IllegalArgumentException("Error! The arguments are not correct");
         }
         StringBuilder sb = new StringBuilder();

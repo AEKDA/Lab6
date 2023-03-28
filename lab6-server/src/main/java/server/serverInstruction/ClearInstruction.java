@@ -33,6 +33,7 @@ public class ClearInstruction implements ServerInstruction {
     public String about() {
         return "очистить коллекцию";
     }
+
     public boolean needElement() {
         return false;
     }

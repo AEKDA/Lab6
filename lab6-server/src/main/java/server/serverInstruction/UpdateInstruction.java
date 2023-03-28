@@ -1,6 +1,5 @@
 package server.serverInstruction;
 
-import core.io.Cin;
 import core.models.Movie;
 import server.logic.ServerInstruction;
 import server.logic.MovieCollection;
@@ -15,7 +14,7 @@ public class UpdateInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) throws IllegalArgumentException {
-        if (info.getArgs().length != 1) {
+        if (info.getArgs() == null || info.getArgs().length != 1) {
             throw new IllegalArgumentException("Error! the instruction is incorrect");
         }
         int update_id = 0;
@@ -27,10 +26,8 @@ public class UpdateInstruction implements ServerInstruction {
 
         for (int i = 0; i < MovieCollection.getInstance().getData().size(); i++) {
             if (MovieCollection.getInstance().getData().get(i).getId() == update_id) {
-                Movie m = new Movie();
-                m.getElement(Cin.peek());
-                m.setId(update_id);
-                MovieCollection.getInstance().getData().set(i, m);
+                ((Movie) info.getElement()).setId(update_id);
+                MovieCollection.getInstance().getData().set(i, (Movie) info.getElement());
                 return new PrintInstruction("Элемент обновлен");
             }
         }

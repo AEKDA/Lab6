@@ -25,7 +25,8 @@ public class Main {
                 .addInstruction(new ShowInstruction())
                 .addInstruction(new ExitInstruction())
                 .addInstruction(new AddInstruction())
-                .addInstruction(new NewConnectionInstruction(instructionFetch));
+                .addInstruction(new NewConnectionInstruction(instructionFetch))
+                .addInstruction(new CheckConnectionInstruction());
 
         clientListener.registerObserver(instructionFetch);
         clientListener.start();

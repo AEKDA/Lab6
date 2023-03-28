@@ -1,9 +1,11 @@
 package core.models;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonSetter;
 
-public class Location {
+public class Location implements Serializable {
     private long x;
     private double y;
     private float z;

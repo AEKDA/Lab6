@@ -37,7 +37,8 @@ public class InstructionFetch implements Observer {
         }
 
         for (ServerInstruction instruction : instructionStack) {
-            if (instruction.getName().equals(info.getInstruction())) {
+            if ((instruction.getName().equals(info.getInstruction()))
+                    && (instruction.isSpecial() == info.isSpecial())) {
                 return instruction;
             }
         }

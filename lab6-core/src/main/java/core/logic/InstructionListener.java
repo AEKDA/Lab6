@@ -36,7 +36,7 @@ public class InstructionListener implements Observable {
 
         if (args.length == 1)
             return new InstructionInfo(args[0]);
-        else if (args.length == 2) {
+        else if (args.length >= 2) {
             return new InstructionInfo(args[0], Arrays.copyOfRange(args, 1, args.length));
         }
         return new InstructionInfo();

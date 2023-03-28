@@ -27,7 +27,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
     @Override
     protected void implement(Client client) throws IllegalArgumentException {
         InstructionListener instructionListener = client.getListener();
-        if (args.length != 1) {
+        if (args.getArgs() == null || args.length != 1) {
             throw new IllegalArgumentException("Error! The arguments are not correct");
         }
         try {
