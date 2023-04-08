@@ -1,4 +1,4 @@
-package core.net;
+package server.net;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -8,11 +8,13 @@ import java.nio.ByteBuffer;
 
 import core.io.Logger;
 import core.logic.InstructionInfo;
+import core.net.NetManager;
 import core.util.Serializer;
+import server.logic.ClientInfo;
 
 public class NetIOManager implements NetManager, AutoCloseable {
     private DatagramSocket ds;
-    private ClientData lastClient;
+    private ClientInfo lastClient;
 
     public NetIOManager(InetAddress host, int port) {
         try {
@@ -22,25 +24,7 @@ public class NetIOManager implements NetManager, AutoCloseable {
         }
     }
 
-    public static class ClientData {
-        private int port;
-        private InetAddress host;
-
-        public ClientData(int port, InetAddress host) {
-            this.port = port;
-            this.host = host;
-        }
-
-        public int getPort() {
-            return port;
-        }
-
-        public InetAddress getAddress() {
-            return host;
-        }
-    }
-
-    public ClientData getLastClient() {
+    public ClientInfo getLastClient() {
         return lastClient;
     }
 
@@ -67,7 +51,7 @@ public class NetIOManager implements NetManager, AutoCloseable {
         dp = new DatagramPacket(buffer.array(), 32768);
         try {
             ds.receive(dp);
-            lastClient = new ClientData(dp.getPort(), dp.getAddress());
+            lastClient = new ClientInfo(dp.getPort(), dp.getAddress());
             return (InstructionInfo) Serializer.deserialize(dp.getData());
         } catch (Exception e) {
             Logger.get().writeLine("NetIOManager::receive: " + e.getMessage());

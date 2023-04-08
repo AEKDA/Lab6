@@ -1,5 +1,8 @@
 package core.logic;
 
+import core.net.NetManager;
+import java.net.InetAddress;
+
 public interface Client {
 
     void setInstruction(InstructionInfo[] instructionList);
@@ -7,4 +10,11 @@ public interface Client {
     void stop();
 
     InstructionListener getListener();
+
+    NetManager getNetManager();
+
+    int getServerPort();
+
+    InetAddress getServerHost();
+
 }

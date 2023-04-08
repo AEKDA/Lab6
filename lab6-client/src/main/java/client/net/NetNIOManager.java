@@ -1,4 +1,4 @@
-package core.net;
+package client.net;
 
 import java.nio.channels.DatagramChannel;
 import java.net.InetSocketAddress;
@@ -9,6 +9,7 @@ import java.time.Duration;
 
 import core.exception.ConnectErrorException;
 import core.io.Logger;
+import core.net.NetManager;
 import core.util.Serializer;
 import core.clientInstruction.*;
 

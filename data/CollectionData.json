@@ -1,122 +1,116 @@
-[
-  {
-    "name": "The Hateful Eight",
-    "coordinates": {
-      "x": 1.0,
-      "y": 12.0
-    },
-    "creationDate": "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
-    "budget": 600000.0,
-    "totalBoxOffice": 1.4575117E8,
-    "director": {
-      "name": "Quentin Tarantino",
-      "height": 185,
-      "eyeColor": "BROWN",
-      "nationality": "INDIA",
-      "location": {
-        "x": 123,
-        "y": 4231.0,
-        "z": 123.123,
-        "name": "USA"
-      }
-    },
-    "oscarsCount": 1,
-    "genre": "THRILLER"
+[ {
+  "name" : "The Hateful Eight",
+  "coordinates" : {
+    "x" : 1.0,
+    "y" : 12.0
   },
-  {
-    "name": "Inglourious Basterds",
-    "coordinates": {
-      "x": 1322.0,
-      "y": 499.0
-    },
-    "creationDate": "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
-    "budget": 500000.0,
-    "totalBoxOffice": 3.21455689E8,
-    "director": {
-      "name": "Quentin Tarantino",
-      "height": 185,
-      "eyeColor": "BROWN",
-      "nationality": "INDIA",
-      "location": {
-        "x": 123,
-        "y": 4231.0,
-        "z": 123.123,
-        "name": "USA"
-      }
-    },
-    "oscarsCount": 1,
-    "genre": "THRILLER"
+  "creationDate" : "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
+  "budget" : 600000.0,
+  "totalBoxOffice" : 1.4575117E8,
+  "director" : {
+    "name" : "Quentin Tarantino",
+    "height" : 185,
+    "eyeColor" : "BROWN",
+    "nationality" : "INDIA",
+    "location" : {
+      "x" : 123,
+      "y" : 4231.0,
+      "z" : 123.123,
+      "name" : "USA"
+    }
   },
-  {
-    "name": "Django Unchained",
-    "coordinates": {
-      "x": 1.0,
-      "y": 142.0
-    },
-    "creationDate": "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
-    "budget": 1.3121331E7,
-    "totalBoxOffice": 1.2312231233E10,
-    "director": {
-      "name": "Quentin Tarantino",
-      "height": 185,
-      "eyeColor": "BROWN",
-      "nationality": "INDIA",
-      "location": {
-        "x": 123,
-        "y": 4231.0,
-        "z": 123.123,
-        "name": "USA"
-      }
-    },
-    "oscarsCount": 1,
-    "genre": "THRILLER"
+  "genre" : "THRILLER",
+  "oscarsCount" : 1
+}, {
+  "name" : "Inglourious Basterds",
+  "coordinates" : {
+    "x" : 1322.0,
+    "y" : 499.0
   },
-  {
-    "name": "Pulp Fiction",
-    "coordinates": {
-      "x": 5.0,
-      "y": 110.0
-    },
-    "creationDate": "2023-02-19T18:32:22.227283700+03:00[Europe/Moscow]",
-    "budget": 8000000.0,
-    "totalBoxOffice": 2.13928762E8,
-    "director": {
-      "name": "Quentin Tarantino",
-      "height": 185,
-      "eyeColor": "BROWN",
-      "nationality": "INDIA",
-      "location": {
-        "x": 112323,
-        "y": 423121.0,
-        "z": 154.2123,
-        "name": "USA"
-      }
-    },
-    "oscarsCount": 2,
-    "genre": "THRILLER"
+  "creationDate" : "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
+  "budget" : 500000.0,
+  "totalBoxOffice" : 3.21455689E8,
+  "director" : {
+    "name" : "Quentin Tarantino",
+    "height" : 185,
+    "eyeColor" : "BROWN",
+    "nationality" : "INDIA",
+    "location" : {
+      "x" : 123,
+      "y" : 4231.0,
+      "z" : 123.123,
+      "name" : "USA"
+    }
   },
-  {
-    "name": "House, which build Jack",
-    "coordinates": {
-      "x": 123.0,
-      "y": 234.0
-    },
-    "creationDate": "2023-02-24T02:14:18.424890200+03:00[Europe/Moscow]",
-    "budget": 1231.0,
-    "totalBoxOffice": 123333.0,
-    "director": {
-      "name": "Jn",
-      "height": 185,
-      "eyeColor": "RED",
-      "nationality": "CHINA",
-      "location": {
-        "x": 123,
-        "y": 123.0,
-        "z": 123.0,
-        "name": "Ru"
-      }
-    },
-    "oscarsCount": 4,
-    "genre": "DRAMA"
-  }
-]
+  "genre" : "THRILLER",
+  "oscarsCount" : 1
+}, {
+  "name" : "Django Unchained",
+  "coordinates" : {
+    "x" : 1.0,
+    "y" : 142.0
+  },
+  "creationDate" : "2022-02-19T18:32:22.206279100+03:00[Europe/Moscow]",
+  "budget" : 1.3121331E7,
+  "totalBoxOffice" : 1.2312231233E10,
+  "director" : {
+    "name" : "Quentin Tarantino",
+    "height" : 185,
+    "eyeColor" : "BROWN",
+    "nationality" : "INDIA",
+    "location" : {
+      "x" : 123,
+      "y" : 4231.0,
+      "z" : 123.123,
+      "name" : "USA"
+    }
+  },
+  "genre" : "THRILLER",
+  "oscarsCount" : 1
+}, {
+  "name" : "Pulp Fiction",
+  "coordinates" : {
+    "x" : 5.0,
+    "y" : 110.0
+  },
+  "creationDate" : "2023-02-19T18:32:22.227283700+03:00[Europe/Moscow]",
+  "budget" : 8000000.0,
+  "totalBoxOffice" : 2.13928762E8,
+  "director" : {
+    "name" : "Quentin Tarantino",
+    "height" : 185,
+    "eyeColor" : "BROWN",
+    "nationality" : "INDIA",
+    "location" : {
+      "x" : 112323,
+      "y" : 423121.0,
+      "z" : 154.2123,
+      "name" : "USA"
+    }
+  },
+  "genre" : "THRILLER",
+  "oscarsCount" : 2
+}, {
+  "name" : "House, which build Jack",
+  "coordinates" : {
+    "x" : 123.0,
+    "y" : 234.0
+  },
+  "creationDate" : "2023-02-24T02:14:18.424890200+03:00[Europe/Moscow]",
+  "budget" : 1231.0,
+  "totalBoxOffice" : 123333.0,
+  "director" : {
+    "name" : "Jn",
+    "height" : 185,
+    "eyeColor" : "RED",
+    "nationality" : "CHINA",
+    "location" : {
+      "x" : 123,
+      "y" : 123.0,
+      "z" : 123.0,
+      "name" : "Ru"
+    }
+  },
+  "genre" : "DRAMA",
+  "oscarsCount" : 4
+} ]

@@ -3,13 +3,14 @@ package client.logic;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
+import client.net.NetNIOManager;
 import core.clientInstruction.ClientInstruction;
 import core.exception.ConnectErrorException;
 import core.logic.InstructionInfo;
 import core.logic.InstructionListener;
 import core.logic.Observer;
 import core.models.Movie;
-import core.net.NetNIOManager;
+import core.net.NetManager;
 import core.logic.Client;
 import core.io.Cin;
 import core.io.Logger;
@@ -115,4 +116,17 @@ public class User implements Observer, Client {
     public void doAction(ClientInstruction response) {
         response.execute(this);
     }
+
+    public NetManager getNetManager() {
+        return netManager;
+    }
+
+    public int getServerPort() {
+        return serverPort;
+    }
+
+    public InetAddress getServerHost() {
+        return serverHost;
+    }
+
 }

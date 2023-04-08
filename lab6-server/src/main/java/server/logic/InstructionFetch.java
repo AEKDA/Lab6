@@ -5,6 +5,7 @@ import java.util.Stack;
 
 import core.logic.InstructionInfo;
 import core.logic.Observer;
+import core.clientInstruction.GetElementInstruction;
 import core.clientInstruction.PrintInstruction;
 import server.exception.IncorrectInstructionException;
 
@@ -23,13 +24,42 @@ public class InstructionFetch implements Observer {
     @Override
     public void update(InstructionInfo info) {
         try {
+            // Получаем инструкцию и обрабатываем исключения
             ServerInstruction i = getInstruction(info);
-            clientListener.setAnswer(i.execute(info));
+            // Смотрим состояние последнего клиента
+            switch (clientListener.getLastClient().getState()) {
+                case Default:
+                    // если веденой команде нужен элемент, отправляем запрос на ввод
+                    // Иначе выполняем команду без элемента
+                    if (i.needElement() && info.getElement() == null) {
+                        clientListener.getLastClient().switchState(ClinetState.Wait);
+                        clientListener.setAnswer(new GetElementInstruction());
+                        break;
+                    } else {
+                        try {
+                            clientListener.setAnswer(i.execute(info));
+                        } catch (IllegalArgumentException e) {
+                            clientListener
+                                    .setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
+                        }
+
+                    }
+                case Wait:
+                    // Устанавливаем состояние клиента на состояние по умолчанию и выполняем
+                    // инструкцию
+                    try {
+                        clientListener.setAnswer(i.execute(info));
+                    } catch (IllegalArgumentException e) {
+                        clientListener
+                                .setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
+                    }
+                    clientListener.getLastClient().switchState(ClinetState.Default);
+                    break;
+            }
         } catch (IncorrectInstructionException e) {
             clientListener.setAnswer(new PrintInstruction(e.getMessage()));
-        } catch (IllegalArgumentException e) {
-            clientListener.setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
         }
+
     }
 
     private ServerInstruction getInstruction(InstructionInfo info) throws IncorrectInstructionException {

@@ -1,6 +1,7 @@
 package server.logic;
 
 import java.net.InetAddress;
+import java.util.Stack;
 import java.util.LinkedList;
 import java.util.logging.Logger;
 
@@ -8,20 +9,23 @@ import core.clientInstruction.ClientInstruction;
 import core.logic.InstructionInfo;
 import core.logic.Observable;
 import core.logic.Observer;
-import core.net.NetIOManager;
+import server.net.NetIOManager;
 
 public class ClientListener implements Observable {
     private LinkedList<Observer> deque = new LinkedList<>();
     private Logger logger;
+    private Stack<ClientInfo> clinetPool;
+    private ClientInfo lastClient = null;
 
     private final int port = 5343;
 
-    private InstructionInfo info = null;
+    private InstructionInfo instructionInfo = null;
     private ClientInstruction answer = null;
     private NetIOManager netManager = null;
 
     {
         logger = Logger.getLogger(ClientListener.class.getName());
+        clinetPool = new Stack<>();
         try {
             netManager = new NetIOManager(InetAddress.getLocalHost(), port);
         } catch (Exception e) {
@@ -32,11 +36,30 @@ public class ClientListener implements Observable {
     public void start() {
         logger.info("Server start work; Port = " + Integer.toString(port));
         while (true) {
-            info = netManager.receive();
-            netManager.getLastClient();
+            instructionInfo = netManager.receive();
+            ClientInfo clientInfo = netManager.getLastClient();
+            if (!existClient(clientInfo)) {
+                clinetPool.push(clientInfo);
+                logger.info("New Connection: Port: " + clientInfo.getPort() + " Adddress: "
+                        + clientInfo.getAddress().toString());
+            }
+            lastClient = clientInfo;
             notifyObservers();
-            netManager.send(answer, netManager.getLastClient().getAddress(), netManager.getLastClient().getPort());
+            netManager.send(answer, clientInfo.getAddress(), clientInfo.getPort());
         }
+    }
+
+    public boolean existClient(ClientInfo clientInfo) {
+        for (ClientInfo info : clinetPool) {
+            if (info.getAddress().equals(clientInfo.getAddress()) && info.getPort() == clientInfo.getPort()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void removeClientInfo(ClientInfo clientInfo) {
+        clinetPool.remove(clientInfo);
     }
 
     @Override
@@ -48,6 +71,10 @@ public class ClientListener implements Observable {
         answer = clientInstruction;
     }
 
+    public Stack<ClientInfo> getClientPool() {
+        return clinetPool;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         deque.push(observer);
@@ -56,8 +83,12 @@ public class ClientListener implements Observable {
     @Override
     public void notifyObservers() {
         for (Observer o : deque) {
-            o.update(info);
+            o.update(instructionInfo);
         }
+    }
+
+    public ClientInfo getLastClient() {
+        return lastClient;
     }
 
 }
