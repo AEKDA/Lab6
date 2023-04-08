@@ -17,8 +17,8 @@ import core.io.BaseReader;
  * Комманда исполняет скрипт, который был передан ей
  */
 public class ClientExecuteScriptInstruction extends ClientInstruction {
-    Stack<Path> recursiveStack = new Stack<>();
-    String[] args;
+    private static Stack<Path> recursiveStack = new Stack<>();
+    private String[] args;
 
     public ClientExecuteScriptInstruction(String[] args) {
         this.args = args;
@@ -27,7 +27,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
     @Override
     protected void implement(Client client) throws IllegalArgumentException {
         InstructionListener instructionListener = client.getListener();
-        if (args.getArgs() == null || args.length != 1) {
+        if (args == null || args.length != 1) {
             throw new IllegalArgumentException("Error! The arguments are not correct");
         }
         try {
@@ -69,7 +69,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
     }
 
     public boolean pathCheck(Path path) throws IOException {
-        for (Path string : this.recursiveStack) {
+        for (Path string : recursiveStack) {
             if (Files.isSameFile(path, string)) {
                 return false;
             }

@@ -1,5 +1,6 @@
 package server.logic;
 
+import java.util.Collections;
 import java.util.Stack;
 
 import core.logic.InstructionInfo;
@@ -55,6 +56,11 @@ public class InstructionFetch implements Observer {
      */
     public InstructionFetch addInstruction(ServerInstruction instruction) {
         instructionStack.push(instruction);
+        return this;
+    }
+
+    public InstructionFetch addInstruction(ServerInstruction... instruction) {
+        Collections.addAll(instructionStack, instruction);
         return this;
     }
 

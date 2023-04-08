@@ -87,9 +87,11 @@ public class MovieCollection implements CollectionManager<Movie> {
     public void setStartData(String pathToCollectiion) {
         try {
             FileManager.get().pushPath("Collection", pathToCollectiion);
-            Logger.get().writeLine("Файл открыт");
+            // TODO: logging
+            // Logger.get().writeLine("Файл открыт");
         } catch (IncorrectPathException e) {
-            Logger.get().writeLine(e.getMessage());
+            // TODO: logging
+            // Logger.get().writeLine(e.getMessage());
             return;
         }
         try {

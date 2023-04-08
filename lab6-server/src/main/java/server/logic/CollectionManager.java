@@ -5,7 +5,8 @@ import java.util.Collection;
 import core.logic.CollectionElement;
 
 /**
- * Интерфейс, который предоставляет абстрагированные методы для работы с коллекциями
+ * Интерфейс, который предоставляет методы для работы с
+ * коллекциями
  */
 public interface CollectionManager<T extends CollectionElement> {
 

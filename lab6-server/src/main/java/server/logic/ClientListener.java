@@ -2,6 +2,7 @@ package server.logic;
 
 import java.net.InetAddress;
 import java.util.LinkedList;
+import java.util.logging.Logger;
 
 import core.clientInstruction.ClientInstruction;
 import core.logic.InstructionInfo;
@@ -11,13 +12,16 @@ import core.net.NetIOManager;
 
 public class ClientListener implements Observable {
     private LinkedList<Observer> deque = new LinkedList<>();
+    private Logger logger;
 
     private final int port = 5343;
 
     private InstructionInfo info = null;
     private ClientInstruction answer = null;
     private NetIOManager netManager = null;
+
     {
+        logger = Logger.getLogger(ClientListener.class.getName());
         try {
             netManager = new NetIOManager(InetAddress.getLocalHost(), port);
         } catch (Exception e) {
@@ -26,6 +30,7 @@ public class ClientListener implements Observable {
     }
 
     public void start() {
+        logger.info("Server start work; Port = " + Integer.toString(port));
         while (true) {
             info = netManager.receive();
             netManager.getLastClient();

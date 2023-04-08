@@ -1,2 +1,2 @@
 f
-execute_script ../data/script4.txt
+execute_script ../data/script2.txt
