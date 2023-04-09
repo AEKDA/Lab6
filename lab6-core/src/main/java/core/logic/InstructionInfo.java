@@ -5,7 +5,6 @@ import java.io.Serializable;
 public class InstructionInfo implements Serializable {
     private String instructionName = "";
     private String[] args;
-    private boolean isElement = false;
     private CollectionElement collectionElement = null;
     private boolean isSpecial = false;
     private static final long serialVersionUID = 2L;
@@ -40,14 +39,6 @@ public class InstructionInfo implements Serializable {
 
     public void setElement(CollectionElement collectionElement) {
         this.collectionElement = collectionElement;
-    }
-
-    public void setIsElement(boolean need) {
-        this.isElement = need;
-    }
-
-    public boolean IsElement() {
-        return isElement;
     }
 
     public String getInstruction() {

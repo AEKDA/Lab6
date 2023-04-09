@@ -9,7 +9,7 @@ import core.io.Cin;
 public class GetElementInstruction extends ClientInstruction {
     public void implement(Client client) {
         CollectionElement collectionElement = new Movie();
-        collectionElement.getElement(new Cin(System.in));
+        collectionElement.getElement(Cin.peek());
         InstructionInfo info = new InstructionInfo();
         info.setElement(collectionElement);
         client.getNetManager().send(info, client.getServerHost(), client.getServerPort());

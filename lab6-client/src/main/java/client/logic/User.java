@@ -9,18 +9,18 @@ import core.exception.ConnectErrorException;
 import core.logic.InstructionInfo;
 import core.logic.InstructionListener;
 import core.logic.Observer;
-import core.models.Movie;
 import core.net.NetManager;
 import core.logic.Client;
-import core.io.Cin;
+import core.logic.ClinetState;
 import core.io.Logger;
 
 public class User implements Observer, Client {
-    final int serverPort;
+    private final int serverPort;
     private InetAddress serverHost;
     private InstructionListener instructionListener;
     private InstructionInfo[] instructionList;
     private NetNIOManager netManager;
+    private ClinetState state;
 
     public User(int port, InstructionListener instructionListener) {
         this.serverPort = port;
@@ -29,6 +29,7 @@ public class User implements Observer, Client {
     }
 
     {
+        state = ClinetState.Work;
         try {
             serverHost = InetAddress.getLocalHost();
         } catch (UnknownHostException e) {
@@ -101,11 +102,6 @@ public class User implements Observer, Client {
     public boolean checkInstruction(InstructionInfo info) {
         for (InstructionInfo inst : instructionList) {
             if (inst.getInstruction().equals(info.getInstruction())) {
-                if (inst.IsElement()) {
-                    Movie movie = new Movie();
-                    movie.getElement(Cin.peek());
-                    info.setElement(movie);
-                }
                 netManager.send(info, serverHost, serverPort);
                 return true;
             }
@@ -127,6 +123,10 @@ public class User implements Observer, Client {
 
     public InetAddress getServerHost() {
         return serverHost;
+    }
+
+    public void switchState(ClinetState state) {
+        this.state = state;
     }
 
 }

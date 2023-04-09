@@ -3,6 +3,7 @@ package server.logic;
 import java.util.Collections;
 import java.util.Stack;
 
+import core.logic.ClinetState;
 import core.logic.InstructionInfo;
 import core.logic.Observer;
 import core.clientInstruction.GetElementInstruction;
@@ -28,7 +29,7 @@ public class InstructionFetch implements Observer {
             ServerInstruction i = getInstruction(info);
             // Смотрим состояние последнего клиента
             switch (clientListener.getLastClient().getState()) {
-                case Default:
+                case Work:
                     // если веденой команде нужен элемент, отправляем запрос на ввод
                     // Иначе выполняем команду без элемента
                     if (i.needElement() && info.getElement() == null) {
@@ -53,7 +54,7 @@ public class InstructionFetch implements Observer {
                         clientListener
                                 .setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
                     }
-                    clientListener.getLastClient().switchState(ClinetState.Default);
+                    clientListener.getLastClient().switchState(ClinetState.Work);
                     break;
             }
         } catch (IncorrectInstructionException e) {

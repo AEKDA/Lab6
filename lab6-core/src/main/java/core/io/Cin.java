@@ -1,5 +1,6 @@
 package core.io;
 
+
 import java.io.InputStream;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class Cin {
      * @param is создает сканнер с этим источником и устанавливает в зависимости от
      *           источника {@link lab6.io.Cin.Type}
      */
-    public Cin(InputStream is) {
+    public Cin(InputStream is) throws RuntimeException {
         if (is == System.in) {
             type = Type.STD;
         } else {

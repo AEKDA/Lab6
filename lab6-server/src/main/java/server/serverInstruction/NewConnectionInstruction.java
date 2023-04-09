@@ -20,7 +20,6 @@ public class NewConnectionInstruction implements ServerInstruction {
 
         for (ServerInstruction serverInstruction : fetch.getInstructionStack()) {
             InstructionInfo out = new InstructionInfo(serverInstruction.getName(), serverInstruction.isSpecial());
-            out.setIsElement(serverInstruction.needElement());
             infoStack.push(out);
         }
 

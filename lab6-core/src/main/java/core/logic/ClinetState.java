@@ -1,6 +1,6 @@
-package server.logic;
+package core.logic;
 
 public enum ClinetState {
-    Default,
+    Work,
     Wait
 }

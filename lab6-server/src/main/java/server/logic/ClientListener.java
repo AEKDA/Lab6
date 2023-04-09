@@ -49,9 +49,9 @@ public class ClientListener implements Observable {
         }
     }
 
-    public boolean existClient(ClientInfo clientInfo) {
+    private boolean existClient(ClientInfo clientInfo) {
         for (ClientInfo info : clinetPool) {
-            if (info.getAddress().equals(clientInfo.getAddress()) && info.getPort() == clientInfo.getPort()) {
+            if (info.equals(clientInfo)) {
                 return true;
             }
         }

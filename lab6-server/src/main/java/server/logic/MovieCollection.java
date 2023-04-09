@@ -4,7 +4,6 @@ import java.util.Collections;
 import java.util.Stack;
 
 import core.io.Cin;
-import core.io.Logger;
 import server.exception.IncorrectPathException;
 import server.exception.KeyNotFoundException;
 import server.io.CollectionLoader;
@@ -14,6 +13,7 @@ import core.models.Movie;
 
 import java.time.ZonedDateTime;
 import java.nio.file.Path;
+import java.util.logging.Logger;
 
 /**
  * Класс, реализующий интерфейс {@link lab6.logic.CollectionManager}
@@ -25,6 +25,7 @@ public class MovieCollection implements CollectionManager<Movie> {
     private Stack<Movie> collectionStack;
     private CollectionInfo collectionInfo;
     private int id = 1;
+    private Logger logger;
 
     /**
      * @return объект класса {@link lab6.MovieCollection}
@@ -34,6 +35,10 @@ public class MovieCollection implements CollectionManager<Movie> {
             instance = new MovieCollection();
         }
         return instance;
+    }
+
+    {
+        logger = Logger.getLogger(MovieCollection.class.getName());
     }
 
     private MovieCollection() {
@@ -48,7 +53,7 @@ public class MovieCollection implements CollectionManager<Movie> {
                 this.collectionInfo = new CollectionInfo();
             }
         } catch (IncorrectPathException | KeyNotFoundException e) {
-            Logger.get().writeLine("Файл содержащий информацию о коллекции не может быть прочитан и записан");
+            logger.info("Файл содержащий информацию о коллекции не может быть прочитан и записан");
             this.collectionInfo = new CollectionInfo();
         }
     }
@@ -69,13 +74,13 @@ public class MovieCollection implements CollectionManager<Movie> {
     @Deprecated
     public void getPathToCollection() {
         Cin cin = new Cin(System.in);
-        Logger.get().writeLine("Введите путь к файлу, содержащему коллекцию");
+        logger.info("Введите путь к файлу, содержащему коллекцию");
         String path = cin.nextLine();
         try {
             FileManager.get().pushPath("Collection", path);
-            Logger.get().writeLine("Файл открыт");
+            logger.info("Файл открыт");
         } catch (IncorrectPathException e) {
-            Logger.get().writeLine(e.getMessage());
+            logger.info(e.getMessage());
         }
 
     }
@@ -88,10 +93,10 @@ public class MovieCollection implements CollectionManager<Movie> {
         try {
             FileManager.get().pushPath("Collection", pathToCollectiion);
             // TODO: logging
-            // Logger.get().writeLine("Файл открыт");
+            // logger.info("Файл открыт");
         } catch (IncorrectPathException e) {
             // TODO: logging
-            // Logger.get().writeLine(e.getMessage());
+            // logger.info(e.getMessage());
             return;
         }
         try {
