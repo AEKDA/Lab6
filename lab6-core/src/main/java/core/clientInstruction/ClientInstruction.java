@@ -1,13 +1,15 @@
 package core.clientInstruction;
 
 import java.io.Serializable;
+
+import core.logic.ClinetState;
 import core.logic.Client;
 
 public abstract class ClientInstruction implements Serializable {
     private ClientInstruction nextInstruction = null;
     private static final long serialVersionUID = 1L;
 
-    protected abstract void implement(Client client) throws IllegalArgumentException;
+    protected abstract ClinetState implement(Client client) throws IllegalArgumentException;
 
     public ClientInstruction addInstruction(ClientInstruction clientInstruction) {
         nextInstruction = clientInstruction;
@@ -16,7 +18,7 @@ public abstract class ClientInstruction implements Serializable {
 
     public void execute(Client client) {
         try {
-            implement(client);
+            client.switchState(implement(client));
         } catch (IllegalArgumentException e) {
             return;
         }

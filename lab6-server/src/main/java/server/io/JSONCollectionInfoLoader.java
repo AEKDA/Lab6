@@ -6,7 +6,7 @@ import java.io.File;
 
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
-import core.io.Logger;
+import java.util.logging.Logger;
 import server.logic.CollectionInfo;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -17,13 +17,19 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class JSONCollectionInfoLoader {
     private ObjectMapper objectMapper;
+    private Logger logger;
 
     public JSONCollectionInfoLoader() {
+
         SimpleModule simpleModule = new SimpleModule();
         simpleModule.addDeserializer(ZonedDateTime.class, new JaksonZonedDateTimeDeserializer());
         simpleModule.addSerializer(ZonedDateTime.class, new JaksonZonedDateTimeSerializer());
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(simpleModule);
+    }
+
+    {
+        logger = Logger.getLogger(JSONCollectionInfoLoader.class.getName());
     }
 
     /**
@@ -50,7 +56,7 @@ public class JSONCollectionInfoLoader {
         try {
             objectMapper.writeValue(new File(path), val);
         } catch (IOException e) {
-            Logger.get().writeLine(e.getMessage());
+            logger.info(e.getMessage());
         }
     }
 }

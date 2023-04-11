@@ -25,6 +25,9 @@ public class InsertAtInstruction implements ServerInstruction {
         if (at < 1 || at > MovieCollection.getInstance().getData().size()) {
             return new PrintInstruction("Некорректный индекс");
         }
+        if (info.getElement() == null) {
+            return new GetElementInstruction(info);
+        }
         try {
             MovieCollection.getInstance().getData().insertElementAt((Movie) info.getElement(),
                     Integer.parseInt(info.getArgs()[1]));

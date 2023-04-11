@@ -9,7 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 
 import core.io.BaseReader;
-import core.io.Logger;
+import java.util.logging.Logger;
 import core.models.Movie;
 
 /**
@@ -18,6 +18,7 @@ import core.models.Movie;
  */
 public class JSONMovieLoaer implements CollectionLoader<Movie> {
     private ObjectMapper objectMapper;
+    private Logger logger;
 
     public JSONMovieLoaer() {
         SimpleModule simpleModule = new SimpleModule();
@@ -25,6 +26,10 @@ public class JSONMovieLoaer implements CollectionLoader<Movie> {
         simpleModule.addSerializer(ZonedDateTime.class, new JaksonZonedDateTimeSerializer());
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(simpleModule);
+    }
+
+    {
+        logger = Logger.getLogger(JSONMovieLoaer.class.getName());
     }
 
     /**
@@ -40,7 +45,7 @@ public class JSONMovieLoaer implements CollectionLoader<Movie> {
             }
             return objectMapper.readValue(new File(path), Movie[].class);
         } catch (DatabindException e) {
-            Logger.get().writeLine("Указанный Json некорректен");
+            logger.info("Указанный Json некорректен");
         } catch (IOException e) {
         }
         return null;
@@ -55,7 +60,7 @@ public class JSONMovieLoaer implements CollectionLoader<Movie> {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(path), array);
         } catch (IOException e) {
-            Logger.get().writeLine(e.getMessage());
+            logger.info(e.getMessage());
         }
     }
 

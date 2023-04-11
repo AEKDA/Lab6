@@ -9,6 +9,7 @@ import java.nio.file.Path;
 import java.util.EmptyStackException;
 import java.util.Stack;
 
+import core.logic.ClinetState;
 import core.logic.Client;
 import core.logic.InstructionListener;
 import core.io.BaseReader;
@@ -25,7 +26,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
     }
 
     @Override
-    protected void implement(Client client) throws IllegalArgumentException {
+    protected ClinetState implement(Client client) throws IllegalArgumentException {
         InstructionListener instructionListener = client.getListener();
         if (args == null || args.length != 1) {
             throw new IllegalArgumentException("Error! The arguments are not correct");
@@ -50,7 +51,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
                 throw new IllegalArgumentException("Вы ввели путь к директории");
             }
             if (!pathCheck(path)) {
-                return;
+                return ClinetState.Work;
             }
             if (!exist) {
                 throw new IllegalArgumentException("Error! File not Found");
@@ -66,6 +67,7 @@ public class ClientExecuteScriptInstruction extends ClientInstruction {
         } catch (IOException e) {
             throw new IllegalArgumentException("Error! File not Found");
         }
+        return ClinetState.Work;
     }
 
     public boolean pathCheck(Path path) throws IOException {

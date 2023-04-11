@@ -23,7 +23,9 @@ public class UpdateInstruction implements ServerInstruction {
         } catch (NumberFormatException e) {
             return new PrintInstruction("Некорректный аргумент");
         }
-
+        if (info.getElement() == null) {
+            return new GetElementInstruction(info);
+        }
         for (int i = 0; i < MovieCollection.getInstance().getData().size(); i++) {
             if (MovieCollection.getInstance().getData().get(i).getId() == update_id) {
                 ((Movie) info.getElement()).setId(update_id);

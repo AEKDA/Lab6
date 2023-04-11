@@ -1,5 +1,6 @@
 package core.clientInstruction;
 
+import core.logic.ClinetState;
 import core.io.Logger;
 import core.logic.Client;
 
@@ -10,7 +11,8 @@ public class PrintInstruction extends ClientInstruction {
         this.message = message;
     }
 
-    public void implement(Client client) {
+    public ClinetState implement(Client client) {
         Logger.get().writeLine(message);
+        return ClinetState.Work;
     }
 }

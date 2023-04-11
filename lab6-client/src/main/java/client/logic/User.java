@@ -35,7 +35,7 @@ public class User implements Observer, Client {
         } catch (UnknownHostException e) {
             serverHost = null;
         }
-        netManager = new NetNIOManager();
+        netManager = new NetNIOManager(400);
     }
 
     public void startConnect(int attempt) {
@@ -84,16 +84,45 @@ public class User implements Observer, Client {
         this.instructionList = instructionList;
     }
 
-    @Override
-    public void update(InstructionInfo info) {
-        if (checkInstruction(info)) {
+    private void whatDo() {
+
+        switch (state) {
+            case Wait:
+                clientWait();
+                break;
+            case Work:
+                clientWork();
+                break;
+        }
+        if (state == ClinetState.Wait) {
+            whatDo();
+        }
+    }
+
+    private void clientWait() {
+        do {
             try {
                 ClientInstruction response = netManager.receive();
                 doAction(response);
             } catch (ConnectErrorException | NullPointerException e) {
-                Logger.get().writeLine("Ответ от сервера не был получен");
-                checkConnectToServer(1);
             }
+        } while (state.equals(ClinetState.Wait));
+    }
+
+    private void clientWork() {
+        try {
+            ClientInstruction response = netManager.receive();
+            doAction(response);
+        } catch (ConnectErrorException | NullPointerException e) {
+            Logger.get().writeLine("Ответ от сервера не был получен");
+            checkConnectToServer(1);
+        }
+    }
+
+    public void update(InstructionInfo info) {
+        if (checkInstruction(info)) {
+            netManager.send(info, serverHost, serverPort);
+            whatDo();
         } else {
             Logger.get().writeLine("Вы ввели неизвестную команду");
         }
@@ -102,7 +131,6 @@ public class User implements Observer, Client {
     public boolean checkInstruction(InstructionInfo info) {
         for (InstructionInfo inst : instructionList) {
             if (inst.getInstruction().equals(info.getInstruction())) {
-                netManager.send(info, serverHost, serverPort);
                 return true;
             }
         }

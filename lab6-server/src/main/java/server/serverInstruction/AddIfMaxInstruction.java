@@ -1,7 +1,5 @@
 package server.serverInstruction;
 
-import core.clientInstruction.PrintInstruction;
-
 import core.models.Movie;
 import server.logic.ServerInstruction;
 import server.logic.MovieCollection;
@@ -17,6 +15,9 @@ import core.clientInstruction.*;
 public class AddIfMaxInstruction implements ServerInstruction {
     @Override
     public ClientInstruction execute(InstructionInfo info) {
+        if (info.getElement() == null) {
+            return new GetElementInstruction(info);
+        }
         for (Movie movie : MovieCollection.getInstance().getData()) {
             if (movie.getTotalBoxOffice() >= ((Movie) info.getElement()).getTotalBoxOffice()) {
                 return new PrintInstruction("Значение не было добавлено");

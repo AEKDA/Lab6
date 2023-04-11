@@ -71,10 +71,6 @@ public class ClientListener implements Observable {
         answer = clientInstruction;
     }
 
-    public Stack<ClientInfo> getClientPool() {
-        return clinetPool;
-    }
-
     @Override
     public void registerObserver(Observer observer) {
         deque.push(observer);

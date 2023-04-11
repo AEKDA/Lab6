@@ -24,7 +24,7 @@ public class MovieCollection implements CollectionManager<Movie> {
     private static MovieCollection instance = null;
     private Stack<Movie> collectionStack;
     private CollectionInfo collectionInfo;
-    private int id = 1;
+    private int id = 0;
     private Logger logger;
 
     /**
@@ -78,7 +78,7 @@ public class MovieCollection implements CollectionManager<Movie> {
         String path = cin.nextLine();
         try {
             FileManager.get().pushPath("Collection", path);
-            logger.info("Файл открыт");
+            logger.info("Файл, содержащий коллекцию, открыт");
         } catch (IncorrectPathException e) {
             logger.info(e.getMessage());
         }
@@ -92,11 +92,9 @@ public class MovieCollection implements CollectionManager<Movie> {
     public void setStartData(String pathToCollectiion) {
         try {
             FileManager.get().pushPath("Collection", pathToCollectiion);
-            // TODO: logging
-            // logger.info("Файл открыт");
+            logger.info("Файл, содержащий коллекцию, открыт");
         } catch (IncorrectPathException e) {
-            // TODO: logging
-            // logger.info(e.getMessage());
+            logger.info(e.getMessage());
             return;
         }
         try {
@@ -129,8 +127,8 @@ public class MovieCollection implements CollectionManager<Movie> {
 
     private void calcId() {
         for (Movie m : collectionStack) {
-            if (m.getId() > id) {
-                id = m.getId() + 1;
+            if (m.getId() == 0) {
+                m.setId(++id);
             }
         }
     }

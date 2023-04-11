@@ -16,7 +16,9 @@ public class AddInstruction implements ServerInstruction {
         if (info.getArgs() != null) {
             throw new IllegalArgumentException("Error! input args incorrect!");
         }
-
+        if (info.getElement() == null) {
+            return new GetElementInstruction(info);
+        }
         MovieCollection.getInstance().pushElement((Movie) info.getElement());
         return new PrintInstruction("Элемент добавлен");
     }

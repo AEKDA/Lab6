@@ -6,7 +6,7 @@ import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
 
-import core.io.Logger;
+import java.util.logging.Logger;
 import core.logic.InstructionInfo;
 import core.net.NetManager;
 import core.util.Serializer;
@@ -15,12 +15,17 @@ import server.logic.ClientInfo;
 public class NetIOManager implements NetManager, AutoCloseable {
     private DatagramSocket ds;
     private ClientInfo lastClient;
+    private Logger logger;
+
+    {
+        logger = Logger.getLogger(NetIOManager.class.getName());
+    }
 
     public NetIOManager(InetAddress host, int port) {
         try {
             ds = new DatagramSocket(port, host);
         } catch (Exception e) {
-            Logger.get().writeLine("NetIOManager::Constructor: " + e.getMessage());
+            logger.info("NetIOManager::Constructor: " + e.getMessage());
         }
     }
 
@@ -35,7 +40,7 @@ public class NetIOManager implements NetManager, AutoCloseable {
             DatagramPacket dp = new DatagramPacket(data, data.length, host, port);
             ds.send(dp);
         } catch (IOException e) {
-            Logger.get().writeLine("NetIOManager::send::Serializer::serialize: " + e.getMessage());
+            logger.info("NetIOManager::send::Serializer::serialize: " + e.getMessage());
         }
 
     }
@@ -54,7 +59,7 @@ public class NetIOManager implements NetManager, AutoCloseable {
             lastClient = new ClientInfo(dp.getPort(), dp.getAddress());
             return (InstructionInfo) Serializer.deserialize(dp.getData());
         } catch (Exception e) {
-            Logger.get().writeLine("NetIOManager::receive: " + e.getMessage());
+            logger.info("NetIOManager::receive: " + e.getMessage());
         }
         return null;
     }

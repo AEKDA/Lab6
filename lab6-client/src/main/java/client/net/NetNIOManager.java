@@ -16,6 +16,7 @@ import core.clientInstruction.*;
 public class NetNIOManager implements NetManager, AutoCloseable {
     private DatagramChannel dc;
     private final InetSocketAddress clientAddress;
+    private int delay = 100;
     {
         clientAddress = new InetSocketAddress(0);
         try {
@@ -25,6 +26,10 @@ public class NetNIOManager implements NetManager, AutoCloseable {
         } catch (Exception e) {
             Logger.get().writeLine("NetNIOManager: " + e.getMessage());
         }
+    }
+
+    public NetNIOManager(int delay) {
+        this.delay = delay;
     }
 
     @Override
@@ -42,7 +47,6 @@ public class NetNIOManager implements NetManager, AutoCloseable {
             byte[] buffer = Serializer.serialize(object);
             ByteBuffer buf = ByteBuffer.wrap(buffer);
             dc.send(buf, new InetSocketAddress(host, serverPort));
-            Thread.sleep(Duration.ofMillis(500));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -52,13 +56,14 @@ public class NetNIOManager implements NetManager, AutoCloseable {
     public ClientInstruction receive() throws ConnectErrorException {
         try {
             ByteBuffer buf = ByteBuffer.allocate(32768);
+            Thread.sleep(Duration.ofMillis(delay));
             dc.receive(buf);
             if (buf.position() == 0) {
                 throw new ConnectErrorException("");
             }
             ClientInstruction response = (ClientInstruction) Serializer.deserialize(buf.array());
             return response;
-        } catch (ClassNotFoundException | IOException e) {
+        } catch (ClassNotFoundException | IOException | InterruptedException e) {
             return new PrintInstruction(e.getMessage());
         }
     }
