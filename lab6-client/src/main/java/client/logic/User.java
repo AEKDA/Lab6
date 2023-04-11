@@ -86,27 +86,10 @@ public class User implements Observer, Client {
 
     private void whatDo() {
 
-        switch (state) {
-            case Wait:
-                clientWait();
-                break;
-            case Work:
-                clientWork();
-                break;
-        }
+        clientWork();
         if (state == ClinetState.Wait) {
-            whatDo();
+            clientWork();
         }
-    }
-
-    private void clientWait() {
-        do {
-            try {
-                ClientInstruction response = netManager.receive();
-                doAction(response);
-            } catch (ConnectErrorException | NullPointerException e) {
-            }
-        } while (state.equals(ClinetState.Wait));
     }
 
     private void clientWork() {
