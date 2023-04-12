@@ -2,6 +2,7 @@ package server.logic;
 
 import java.util.Collections;
 import java.util.Stack;
+import java.util.logging.Logger;
 
 import core.logic.InstructionInfo;
 import core.logic.Observer;
@@ -15,13 +16,19 @@ public class InstructionFetch implements Observer {
 
     private Stack<ServerInstruction> instructionStack = new Stack<>();
     private ClientListener clientListener = null;
+    private Logger logger;
 
     public InstructionFetch(ClientListener server) {
         this.clientListener = server;
     }
 
+    {
+        logger = Logger.getLogger(InstructionFetch.class.getName());
+    }
+
     @Override
     public void update(InstructionInfo info) {
+        logger.info("Get a request: " + info.getInstruction());
         try {
             ServerInstruction i = getInstruction(info);
             clientListener.setAnswer(i.execute(info));
@@ -30,6 +37,7 @@ public class InstructionFetch implements Observer {
         } catch (IllegalArgumentException e) {
             clientListener.setAnswer(new PrintInstruction((info.getInstruction() + ": " + e.getMessage())));
         }
+        logger.info("Send a response: " + clientListener.getAnswer().getClass().getName());
     }
 
     private ServerInstruction getInstruction(InstructionInfo info) throws IncorrectInstructionException {

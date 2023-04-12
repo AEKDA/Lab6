@@ -1,8 +1,7 @@
 package server.serverInstruction;
 
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Stack;
+import java.util.stream.Collectors;
 
 import core.models.Movie;
 import server.logic.ServerInstruction;
@@ -22,18 +21,14 @@ public class PrintDescendingInstruction implements ServerInstruction {
         if (info.getArgs() != null) {
             throw new IllegalArgumentException("Error! Argument of Instruction incorrect");
         }
-        Stack<Movie> tmp = (Stack<Movie>) MovieCollection.getInstance().getData().clone();
-        Collections.sort(tmp, new Comparator<Movie>() {
-            public int compare(Movie t1, Movie t2) {
-                return t1.getName().compareTo(t2.getName()) * -1;
-            }
-        });
-        StringBuilder sb = new StringBuilder();
-        for (Object o : tmp) {
-            sb.append(o.toString());
-        }
 
-        return new PrintInstruction(sb.toString());
+        String collectionSorted = MovieCollection.getInstance().getData().stream().sorted(new Comparator<Movie>() {
+            public int compare(Movie t1, Movie t2) {
+                return t2.getName().compareTo(t1.getName());
+            }
+        }).map(x -> x.toString()).collect(Collectors.joining());
+
+        return new PrintInstruction(collectionSorted);
     }
 
     @Override

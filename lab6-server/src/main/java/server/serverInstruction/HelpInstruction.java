@@ -1,6 +1,7 @@
 package server.serverInstruction;
 
 import java.util.Stack;
+import java.util.stream.Collectors;
 
 import server.logic.ServerInstruction;
 
@@ -21,12 +22,11 @@ public class HelpInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) {
-        StringBuilder sb = new StringBuilder();
-        for (ServerInstruction inst : instructionStack) {
-            if (!inst.isSpecial())
-                sb.append("--->  " + inst.getName() + ": " + inst.about() + "\n");
-        }
-        return new PrintInstruction(sb.toString());
+
+        String answer = instructionStack.stream().filter(x -> !x.isSpecial())
+                .map(x -> "--->  " + x.getName() + ": " + x.about() + "\n").collect(Collectors.joining());
+
+        return new PrintInstruction(answer);
     }
 
     @Override

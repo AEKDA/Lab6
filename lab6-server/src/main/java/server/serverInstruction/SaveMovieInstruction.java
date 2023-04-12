@@ -5,6 +5,9 @@ import server.io.JSONMovieLoaer;
 import server.logic.FileManager;
 import server.logic.ServerInstruction;
 import server.logic.MovieCollection;
+
+import java.util.logging.Logger;
+
 import core.clientInstruction.*;
 import core.logic.InstructionInfo;
 
@@ -12,6 +15,11 @@ import core.logic.InstructionInfo;
  * Команда сохраняет всю коллекцию в файл
  */
 public class SaveMovieInstruction implements ServerInstruction {
+    private Logger logger;
+
+    {
+        logger = Logger.getLogger(SaveMovieInstruction.class.getName());
+    }
 
     @Override
     public ClientInstruction execute(InstructionInfo info) {
@@ -21,7 +29,7 @@ public class SaveMovieInstruction implements ServerInstruction {
                     MovieCollection.getInstance().getData().toArray());
         } catch (KeyNotFoundException e) {
             // MovieCollection.getInstance().getPathToCollection();
-            this.execute(info);
+            logger.info("Коллекция не может быть сохранена");
         }
         return new PrintInstruction("Коллекция сохранена");
     }

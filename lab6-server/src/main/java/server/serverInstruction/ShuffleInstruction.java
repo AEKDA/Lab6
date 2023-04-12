@@ -17,6 +17,7 @@ public class ShuffleInstruction implements ServerInstruction {
 
     @Override
     public ClientInstruction execute(InstructionInfo info) {
+
         Collections.sort(MovieCollection.getInstance().getData(), new Comparator<Object>() {
             public int compare(Object t1, Object t2) {
                 Random rand = new Random();

@@ -71,6 +71,10 @@ public class ClientListener implements Observable {
         answer = clientInstruction;
     }
 
+    public ClientInstruction getAnswer() {
+        return answer;
+    }
+
     @Override
     public void registerObserver(Observer observer) {
         deque.push(observer);

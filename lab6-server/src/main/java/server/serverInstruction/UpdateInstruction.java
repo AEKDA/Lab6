@@ -23,11 +23,11 @@ public class UpdateInstruction implements ServerInstruction {
         } catch (NumberFormatException e) {
             return new PrintInstruction("Некорректный аргумент");
         }
-        if (info.getElement() == null) {
-            return new GetElementInstruction(info);
-        }
         for (int i = 0; i < MovieCollection.getInstance().getData().size(); i++) {
             if (MovieCollection.getInstance().getData().get(i).getId() == update_id) {
+                if (info.getElement() == null) {
+                    return new GetElementInstruction(info);
+                }
                 ((Movie) info.getElement()).setId(update_id);
                 MovieCollection.getInstance().getData().set(i, (Movie) info.getElement());
                 return new PrintInstruction("Элемент обновлен");
