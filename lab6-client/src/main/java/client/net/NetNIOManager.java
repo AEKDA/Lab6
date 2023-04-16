@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.nio.ByteBuffer;
-import java.time.Duration;
+import java.util.concurrent.TimeUnit;
 
 import core.exception.ConnectErrorException;
 import core.io.Logger;
@@ -56,7 +56,7 @@ public class NetNIOManager implements NetManager, AutoCloseable {
     public ClientInstruction receive() throws ConnectErrorException {
         try {
             ByteBuffer buf = ByteBuffer.allocate(32768);
-            Thread.sleep(Duration.ofMillis(delay));
+            TimeUnit.MILLISECONDS.sleep(delay);
             dc.receive(buf);
             if (buf.position() == 0) {
                 throw new ConnectErrorException("");
