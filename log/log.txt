@@ -1,18 +1,6 @@
-апр. 12, 2023 3:36:22 AM server.logic.MovieCollection setStartData
+апр. 16, 2023 9:55:39 PM server.logic.MovieCollection setStartData
 INFO: Файл, содержащий коллекцию, открыт
-апр. 12, 2023 3:36:22 AM server.logic.ClientListener start
+апр. 16, 2023 9:55:40 PM server.dbutil.DBConnection <init>
+INFO: Соединение установлено
+апр. 16, 2023 9:55:40 PM server.logic.ClientListener start
 INFO: Server start work; Port = 5343
-апр. 12, 2023 3:36:31 AM server.logic.ClientListener start
-INFO: New Connection: Port: 62459 Adddress: /192.168.0.3
-апр. 12, 2023 3:36:31 AM server.logic.InstructionFetch update
-INFO: Get a request: __connection
-апр. 12, 2023 3:36:31 AM server.logic.InstructionFetch update
-INFO: Send a response: core.clientInstruction.StackContentInstruction
-апр. 12, 2023 3:36:32 AM server.logic.InstructionFetch update
-INFO: Get a request: show
-апр. 12, 2023 3:36:32 AM server.logic.InstructionFetch update
-INFO: Send a response: core.clientInstruction.PrintInstruction
-апр. 12, 2023 3:36:36 AM server.logic.InstructionFetch update
-INFO: Get a request: exit
-апр. 12, 2023 3:36:36 AM server.logic.InstructionFetch update
-INFO: Send a response: core.clientInstruction.StopClientInstruction

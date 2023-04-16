@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * помощью {@link lab6.MovieCollection#getInstance()}
  */
 public class MovieCollection implements CollectionManager<Movie> {
-    private static MovieCollection instance = null;
+    private static volatile MovieCollection instance = null;
     private Stack<Movie> collectionStack;
     private CollectionInfo collectionInfo;
     private int id = 0;
@@ -32,7 +32,11 @@ public class MovieCollection implements CollectionManager<Movie> {
      */
     public static MovieCollection getInstance() {
         if (instance == null) {
-            instance = new MovieCollection();
+            synchronized (MovieCollection.class) {
+                if (instance == null) {
+                    instance = new MovieCollection();
+                }
+            }
         }
         return instance;
     }
